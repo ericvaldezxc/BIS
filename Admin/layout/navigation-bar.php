@@ -9,8 +9,11 @@
    
     $query = "";
     $username = $_SESSION['username'];
-    $query = "select resident_gender,resident_civil_status, YEAR(CURRENT_TIMESTAMP) - YEAR(resident_birth_day) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(resident_birth_day, 5)) - 1 as age,concat(resident_first_name,' ',ifnull(resident_middle_name ,''),' ',resident_last_name),resident_avatar from r_resident where resident_id = (SELECT user_resident_id FROM `r_user` where user_username = ?) ";
+    // $query = "select resident_gender,resident_civil_status, YEAR(CURRENT_TIMESTAMP) - YEAR(resident_birth_day) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(resident_birth_day, 5)) - 1 as age,concat(resident_first_name,' ',ifnull(resident_middle_name ,''),' ',resident_last_name),resident_avatar from r_resident where resident_id = (SELECT user_resident_id FROM `r_user` where user_username = ?) ";
+    $query = "select resident_gender,resident_civil_status, CAST(DATEDIFF(CURRENT_DATE, resident_birth_day)/365 as int)  as age,concat(resident_first_name,' ',ifnull(resident_middle_name ,''),' ',resident_last_name),resident_avatar from r_resident where resident_id = (SELECT user_resident_id FROM `r_user` where user_username =  ?) ";
+
     $stmt = $connection->prepare($query);
+
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->bind_result($gender,$cs,$age,$fullname,$avatar);
@@ -19,6 +22,59 @@
     while($stmt->fetch()){
         
     }  
+
+
+    $query = "select count(*) from t_request_certificate where request_certificate_active = 'Active' and request_certificate_seen = 'Send' ";
+
+    $stmt = $connection->prepare($query);
+
+    $stmt->execute();
+    $stmt->bind_result($count);
+    while($stmt->fetch()){
+        
+    }  
+    $header  = ' <li class="header">No new request</li>';
+    if($count == 0)
+    {
+        $count = '';
+
+    }
+    else
+    {
+        $header  = ' <li class="header">You have '.$count.' unread request</li>';
+
+    }
+
+    $query = "select request_certificate_purpose,concat(resident_first_name,' ',ifnull(resident_middle_name ,''),' ',resident_last_name) as fullname,request_certificate_id,request_certificate_type,DATE_FORMAT(request_certificate_date_added, '%M %e, %Y')  from t_request_certificate inner join r_resident on resident_id = request_certificate_resident_id where request_certificate_active = 'Active' and    request_certificate_done = 'No' order by request_certificate_date_added desc ";
+
+    $stmt = $connection->prepare($query);
+
+    $stmt->execute();
+    $notificationList = '';
+    $stmt->bind_result($purpose,$name,$id,$type,$date);
+    while($stmt->fetch()){
+        $icon = 'clearance.png';
+        if($type == 'Indigency')
+        {
+            $icon = 'indigency.png';
+
+        }
+        $notificationList = $notificationList . 
+                        "<li><!-- start message -->
+                            <a href='#'>
+                                <h5>
+                                $name
+                                <small class='pull-right'><i class='fa fa-calendar-o'></i> $date</small>
+                                </h5>
+                                <p>$purpose</p>
+                            </a>
+                        </li>";
+        
+    }  
+
+
+    
+    
 
     echo ' 
             <a class="logo">
@@ -40,80 +96,13 @@
                 <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
-                        <li>
-                        <!-- inner menu: contains the actual data -->
-                        <ul class="menu">
-                            <li><!-- start message -->
-                            <a href="#">
-                                <div class="pull-left">
-                                <img src="../dist/avatar/'.$avatar.'" class="img-circle" alt="User Image">
-                                </div>
-                                <h4>
-                                Support Team
-                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                </h4>
-                                <p>Why not buy a new awesome theme?</p>
-                            </a>
-                            </li>
-                            <!-- end message -->
-                            <li>
-                            <a href="#">
-                                <div class="pull-left">
-                                <img src="../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                </div>
-                                <h4>
-                                AdminLTE Design Team
-                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                </h4>
-                                <p>Why not buy a new awesome theme?</p>
-                            </a>
-                            </li>
-                            <li>
-                            <a href="#">
-                                <div class="pull-left">
-                                <img src="../dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                </div>
-                                <h4>
-                                Developers
-                                <small><i class="fa fa-clock-o"></i> Today</small>
-                                </h4>
-                                <p>Why not buy a new awesome theme?</p>
-                            </a>
-                            </li>
-                            <li>
-                            <a href="#">
-                                <div class="pull-left">
-                                <img src="../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                </div>
-                                <h4>
-                                Sales Department
-                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                </h4>
-                                <p>Why not buy a new awesome theme?</p>
-                            </a>
-                            </li>
-                            <li>
-                            <a href="#">
-                                <div class="pull-left">
-                                <img src="../dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                </div>
-                                <h4>
-                                Reviewers
-                                <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                </h4>
-                                <p>Why not buy a new awesome theme?</p>
-                            </a>
-                            </li>
-                        </ul>
-                        </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
+                    <li class="dropdown messages-menu" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notificationBtn" >
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success" id="countNewNotification">'.$count.'</span>
+                        </a>
+                    <ul class="dropdown-menu" id="notificationBody">
+                       
                     </ul>
                     </li>
                     <!-- User Account: style can be found in dropdown.less -->

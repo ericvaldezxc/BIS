@@ -6,7 +6,7 @@
         die("Connection failed: " . $connection->connect_error);
     } 
 
-    $query = "select (select count(*) from t_resident_case where resident_case_status = 'Pending' and resident_case_resident_id = resident_id and resident_case_active = 'Active'),resident_active,resident_address,resident_id,resident_gender,resident_alive,resident_avatar,resident_contact_number,resident_civil_status,resident_birth_day,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_resident where resident_active = 'Active' order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc ";
+    $query = "select (select count(*) from t_resident_case where resident_case_status = 'Pending' and resident_case_resident_id = resident_id and resident_case_active = 'Active'),resident_active,resident_address,resident_id,resident_gender,resident_alive,resident_avatar,resident_contact_number,resident_civil_status,resident_birth_day,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_resident where resident_active = 'Active' and (select count(*) from t_resident_case where resident_case_status = 'Pending' and resident_case_resident_id = resident_id and resident_case_active = 'Active') = 0 order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc ";
     // $query = "select * from r_department ";
     $stmt = $connection->prepare($query);
     $stmt->execute();
@@ -39,20 +39,14 @@
         }
 
         $btn =  " <div class='text-center'> 
-                <a class='btn btn-sm btn-info btn-flat residentInfo' data-id='$id'>
-                    <i class='fa fa-eye'></i>
-                </a>
-                <a class='btn btn-sm btn-success btn-flat residentEdit' data-id='$id'>
-                    <i class='fa fa-edit'></i>
-                </a>
-                <a class='btn btn-sm btn-danger btn-flat residentDelete' data-id='$id'>
-                    <i class='fa fa-trash-o'></i>
-                </a> </div>";
+                <a class='btn btn-sm btn-info btn-flat generate' data-id='$id'>
+                    <i class='fa fa-download'></i>
+                </a></div>";
 
         $name = "<div class='pull-left image'>
                     <img src='../dist/avatar/$avatar' style='height:20px;width:20px' class='img-circle' alt='User Image'>
                 </div>  $name";
-        $templist = array($name,$address,$alive,$case,$btn);
+        $templist = array($name,$address,$alive,$btn);
         array_push($list,$templist);
 
     }  

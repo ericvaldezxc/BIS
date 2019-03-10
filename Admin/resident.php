@@ -67,7 +67,7 @@
         Resident
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fa fa-briefcase"></i> Transaction</a></li>
         <li class="active">Residents</li>
       </ol>
     </section>
@@ -340,6 +340,30 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="caseModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="box box-widget widget-user-2">
+            <div class="widget-user-header bg-blue">
+              <div class="widget-user-image">
+                <img class="img-circle" id="avatarProfileCase" alt="User Avatar">
+              </div>
+              <h3 class="widget-user-username" id="nameSpanCase">Nadia Carmichael</h3>
+              <h5 class="widget-user-desc" >Unsolved Cases</h5>
+            </div>
+            <div class="box-footer no-padding">
+              <ul class="nav nav-stacked" id="caseList">
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <?php
+      
+      include_once('custom.php');
+    ?>
 
 </div>
 
@@ -474,6 +498,45 @@
       })
     })
 
+    $('.dataTable').on('click','a.printIndigency',function(){
+      let id = $(this).data('id')
+      var doc = new jsPDF()
+
+      doc.text('Hello world!', 10, 10)
+      doc.save('a4.pdf')
+      // $.ajax({
+      //   type:'POST',
+      //   data:{id:id},
+      //   dataType:'json',
+      //   url:"API/showResident.php",
+      //   success: function(result){
+      //     document.querySelector('#fnameTxtEdit').value = result.fname
+      //     document.querySelector('#mnameTxtEdit').value = result.mname
+      //     document.querySelector('#lnameTxtEdit').value = result.lname
+      //     document.querySelector('#cnTxtEdit').value = result.cn
+      //     $('#birthDayDatePckrEdit').datepicker('setDate', new Date(result.bday));
+      //    if(result.gender == "Male")
+      //       document.querySelector('#maleRdbtnEdit').checked = true
+      //     else
+      //       document.querySelector('#femaleRdbtnEdit').checked = true
+
+      //     document.querySelector('#addressTxtEdit').value = result.address
+      //     document.querySelector('#civilStatusDrpEdit').value = result.cs
+      //     document.querySelector('#imageUploadEdit').value = ""
+      //     $('#editBtn').data('id',result.id) 
+      //     $('#editBtn').data('avatar',result.avatar) 
+
+      //     document.querySelector('#imagePreviewEdit').style.backgroundImage = `url('../dist/avatar/${result.avatar}')`;
+          
+      //   },
+      //   error:function(err){
+      //     console.log(err)
+
+
+      //   }
+      // })
+
+    })
 
     $('.dataTable').on('click','a.residentEdit',function(){
       $('#editModal').modal('toggle')
@@ -658,6 +721,37 @@
           reader.readAsDataURL(input.files[0]);
       }
     }
+    $('.dataTable').on('click','a.unsolvedCase',function(){
+      $('#caseModal').modal('toggle')
+      let id = $(this).data('id')
+      $.ajax({
+        type:'POST',
+        data:{id:id},
+        dataType:'json',
+        url:"API/showResidentUnsolvedCase.php",
+        success: function(result){
+          document.querySelector('#nameSpanCase').innerHTML = result.fullname
+          $("#avatarProfileCase").attr("src",`../dist/avatar/${result.avatar}`)
+          let caseList = ''
+          console.log(result.caseList)
+          for(residentCase of result.caseList)
+            caseList = caseList + ` <li>
+                  <a href="#">${residentCase.case}<span class="pull-right" >${residentCase.date}</span></a>
+                </li>`
+          $('#caseList').html(caseList)
+
+
+        },
+        error:function(err){
+          console.log(err)
+
+
+        }
+      })
+
+
+    })
+
     $('.dataTable').on('click','a.residentInfo',function(){
       $('#infoModal').modal('toggle')
       let id = $(this).data('id')
@@ -667,7 +761,7 @@
         dataType:'json',
         url:"API/showResident.php",
         success: function(result){
-          document.querySelector('#caseSpan').innerHTML =  `<a href="#">Address <span class="pull-right badge bg-blue" >0</span></a>`
+          document.querySelector('#caseSpan').innerHTML =  `<a href="#">Number of Unsolved Case <span class="pull-right badge bg-blue" >${result.caseCount}</span></a>`
           document.querySelector('#genderSpan').innerHTML = `<a href="#">Gender <span class="pull-right badge bg-blue" >${result.gender}</span></a>` 
           if(result.alive == 'Yes')
             document.querySelector('#aliveSpan').innerHTML = 'Alive'

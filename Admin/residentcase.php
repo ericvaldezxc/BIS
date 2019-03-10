@@ -8,7 +8,7 @@
   ?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Officer | Baranggay Information System </title>
+  <title>Resident Case | Baranggay Information System </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -71,11 +71,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Officer
+        Resident Case
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-briefcase"></i> Transaction</a></li>
-        <li class="active">Officer</li>
+        <li class="active">Resident Case</li>
       </ol>
     </section>
 
@@ -84,10 +84,10 @@
         <div class="col-xs-12">
           <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Officer List</h3>
+              <h3 class="box-title">Resident Case List</h3>
               <br/>
               <a class="btn btn-sm btn-success btn-flat residentAdd margin-top-lg" data-toggle="modal" data-target="#addModal">
-                <i class="fa fa-plus"></i> Officer
+                <i class="fa fa-plus"></i> Resident Case
               </a>
             </div>
             <div class="box-body">
@@ -95,29 +95,15 @@
                 <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Position</th>
-                  <th>Term</th>
+                  <th>Case</th>
+                  <th>Status</th>
+                  <th>Date</th>
                   <th style="width:10%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                  <td>Eric Valdez</td>
-                  <td>Secret</td>
-                  <td class="text-center" style="width:10%">
-                    <a class="btn btn-sm btn-danger btn-flat">Number of Case <span class="badge">7</span></a>
-                  </td>
-                  <td class="text-center" style="width:10%">
-                    <a class="btn btn-sm btn-info btn-flat residentInfo">
-                      <i class="fa fa-eye"></i>
-                    </a>
-                    <a class="btn btn-sm btn-success btn-flat residentEdit">
-                      <i class="fa fa-edit"></i>
-                    </a>
-                    <a class="btn btn-sm btn-danger btn-flat residentDelete">
-                      <i class="fa fa-trash-o"></i>
-                    </a>
-                  </td>
+                  
                 </tr>
               </table>
             </div>
@@ -131,16 +117,16 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Adding New Officer</h4>
+            <h4 class="modal-title">Adding New Resident Case</h4>
           </div>
           <div class="modal-body"> 
             <div class="row">
               <div class="col-lg-8">
-                Officer Name
+                Name
                 <select class="form-control select2 " id="nameDrp" style="width: 100%;">
                   <option selected="selected" disabled>Please Select</option>
                   <?php
-                    $query = "select resident_id,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_resident where resident_active = 'Active' and resident_alive = 'Yes' order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc ";
+                    $query = "select resident_id,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_resident where resident_active = 'Active' order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc ";
                     $stmt = $connection->prepare($query);
                     $stmt->execute();
                     $stmt->bind_result($id,$name);
@@ -153,33 +139,12 @@
                   ?>
                 </select>
               </div>
-            </div>
-            <div class="row margin-top-sm">
-              <div class="col-lg-6">
-                Officer Position
-                <select class="form-control select2" id="positionDrp" style="width: 100%;">
+              <div class="col-lg-4">
+                Case
+                <select class="form-control select2" id="caseDrp" style="width: 100%;">
                   <option selected="selected" disabled>Please Select</option>
                   <?php
-                    // $query = "select baranggay_officer_position_id , baranggay_officer_position_position from r_baranggay_officer_position where baranggay_officer_position_id not in (select baranggay_officer_position_id from r_baranggay_officer where baranggay_officer_active = 'Active' and baranggay_officer_term_id  = (select active_term_term_id from r_active_term where active_term_active = 'Active' ) ) ";
-                    $query = "select baranggay_officer_position_id , baranggay_officer_position_position from r_baranggay_officer_position where baranggay_officer_position_id ";
-                    $stmt = $connection->prepare($query);
-                    $stmt->execute();
-                    $stmt->bind_result($id,$name);
-                    $option = "";
-                    while($stmt->fetch())
-                    {
-                      $option = $option . "<option value='$id' >$name</option>";
-                    }
-                    echo $option;
-                  ?>
-                </select>
-              </div>
-              <div class="col-lg-6">
-                Term
-                <select class="form-control select2" id="termDrp" style="width: 100%;">
-                  <option selected="selected" disabled>Please Select</option>
-                  <?php
-                    $query = "select term_id , term_name from r_term where term_active = 'Active'  ";
+                    $query = "select case_id , case_name from r_case where case_active = 'Active'  ";
                     $stmt = $connection->prepare($query);
                     $stmt->execute();
                     $stmt->bind_result($id,$name);
@@ -207,16 +172,16 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Editting Officer</h4>
+            <h4 class="modal-title">Editting Resident Case</h4>
           </div>
           <div class="modal-body"> 
             <div class="row">
               <div class="col-lg-8">
-                Officer Name
+                Name
                 <select class="form-control select2 " id="nameDrpEdit" style="width: 100%;">
                   <option selected="selected" disabled>Please Select</option>
                   <?php
-                    $query = "select resident_id,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_resident where resident_active = 'Active' and resident_alive = 'Yes' order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc ";
+                    $query = "select resident_id,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_resident where resident_active = 'Active' order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc ";
                     $stmt = $connection->prepare($query);
                     $stmt->execute();
                     $stmt->bind_result($id,$name);
@@ -229,32 +194,12 @@
                   ?>
                 </select>
               </div>
-            </div>
-            <div class="row margin-top-sm">
-              <div class="col-lg-6">
-                Officer Position
-                <select class="form-control select2" id="positionDrpEdit" style="width: 100%;">
+              <div class="col-lg-4">
+                Case
+                <select class="form-control select2" id="caseDrpEdit" style="width: 100%;">
                   <option selected="selected" disabled>Please Select</option>
                   <?php
-                    $query = "select baranggay_officer_position_id , baranggay_officer_position_position from r_baranggay_officer_position";
-                    $stmt = $connection->prepare($query);
-                    $stmt->execute();
-                    $stmt->bind_result($id,$name);
-                    $option = "";
-                    while($stmt->fetch())
-                    {
-                      $option = $option . "<option value='$id' >$name</option>";
-                    }
-                    echo $option;
-                  ?>
-                </select>
-              </div>
-              <div class="col-lg-6">
-                Term
-                <select class="form-control select2" id="termDrpEdit" style="width: 100%;">
-                  <option selected="selected" value="" disabled>Please Select</option>
-                  <?php
-                    $query = "select term_id , term_name from r_term where term_active = 'Active'  ";
+                    $query = "select case_id , case_name from r_case where case_active = 'Active'  ";
                     $stmt = $connection->prepare($query);
                     $stmt->execute();
                     $stmt->bind_result($id,$name);
@@ -344,7 +289,6 @@
 <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 
 <script src="../dist/js/custom.js"></script>
-
 <!-- page script -->
 <script>
   $(function () {
@@ -352,7 +296,7 @@
 
     let table = $('.dataTable').DataTable({ 
         "ajax": {
-            "url": "API/showAllOfficer.php",
+            "url": "API/showAllResidentCase.php",
             "type": "post"
         }
     })
@@ -368,22 +312,17 @@
     
 
     $('.saveBtn').on('click',() => {
-      let term = document.querySelector('#termDrp').value
       let name = document.querySelector('#nameDrp').value
-      let position = document.querySelector('#positionDrp').value
+      let baranggayCase = document.querySelector('#caseDrp').value
 
       $.ajax({
         type:'POST',
-        data:{term:term,name:name,position:position},
-        url:"API/insertOfficer.php",
+        data:{name:name,case:baranggayCase},
+        url:"API/insertResidentCase.php",
         success: function(result){
           if(result == 'Success'){
-            document.querySelector('#termDrp').value = ""
             document.querySelector('#nameDrp').value = ""
-            document.querySelector('#positionDrp').value = ""
-            $('#positionDrp').trigger('change')
-            $('#nameDrp').trigger('change')
-            $('#termDrp').trigger('change')
+            document.querySelector('#caseDrp').value = ""
             $('#addModal').modal('toggle')
             $.hulla.send("Successfully Added", "success");
           }
@@ -407,15 +346,12 @@
         type:'POST',
         data:{id:id},
         dataType:'json',
-        url:"API/showOfficer.php",
+        url:"API/showResidentCase.php",
         success: function(result){
-          document.querySelector('#positionDrpEdit').value = result.position
-          document.querySelector('#nameDrpEdit').value = result.resident
-          document.querySelector('#termDrpEdit').value = result.term
-          document.querySelector('#termDrpEdit').value = result.term
-          $('#positionDrpEdit').trigger('change')
+          document.querySelector('#caseDrpEdit').value = result.case
+          document.querySelector('#nameDrpEdit').value = result.name
+          $('#caseDrpEdit').trigger('change')
           $('#nameDrpEdit').trigger('change')
-          $('#termDrpEdit').trigger('change')
           $('#editBtn').data('id',result.id)
           
           
@@ -431,15 +367,14 @@
 
     $('#editBtn').on('click',function(){
     
-      let term = document.querySelector('#termDrpEdit').value
+      let baranggayCase = document.querySelector('#caseDrpEdit').value
       let name = document.querySelector('#nameDrpEdit').value
-      let position = document.querySelector('#positionDrpEdit').value
       let id = $('#editBtn').data('id') 
 
       $.ajax({
         type:'POST',
-        data:{term:term,name:name,position:position,id:id},
-        url:"API/updateOfficer.php",
+        data:{case:baranggayCase,name:name,id:id},
+        url:"API/updateResidentCase.php",
         success: function(result){
           if(result == 'Success'){
             $('#editModal').modal('toggle')
@@ -467,7 +402,7 @@
       $.ajax({
         type:'POST',
         data:{id:id},
-        url:"API/deleteOfficer.php",
+        url:"API/deleteResidentCase.php",
         success: function(result){
           if(result == 'Success'){
             $.hulla.send("Successfully Deleted", "success");
@@ -487,29 +422,34 @@
 
     })
 
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-              $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-              $('#imagePreview').hide();
-              $('#imagePreview').fadeIn(650);
-          }
-          reader.readAsDataURL(input.files[0]);
-      }
-    }
+    $('.dataTable').on('click','a.itemSolved',function(){
+      
+      let id = $(this).data('id') 
 
-    function readURLEdit(input) {
-      if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-              $('#imagePreviewEdit').css('background-image', 'url('+e.target.result +')');
-              $('#imagePreviewEdit').hide();
-              $('#imagePreviewEdit').fadeIn(650);
+      $.ajax({
+        type:'POST',
+        data:{id:id},
+        url:"API/solvedResidentCase.php",
+        success: function(result){
+          if(result == 'Success'){
+            $.hulla.send("Case Solved", "success");
           }
-          reader.readAsDataURL(input.files[0]);
-      }
-    }
+          else{
+            $.hulla.send("Error encountered", "danger");
+          }
+        },
+        error:function(err){
+          console.log(err)
+
+
+        }
+      })
+
+
+
+    })
+
+    
     $('.dataTable').on('click','a.itemInfo',function(){
       $('#infoModal').modal('toggle')
       let id = $(this).data('id')
@@ -517,7 +457,7 @@
         type:'POST',
         data:{id:id},
         dataType:'json',
-        url:"API/showOfficerProfile.php",
+        url:"API/showCaseProfile.php",
         success: function(result){
           document.querySelector('#genderSpan').innerHTML = `<a href="#">Gender <span class="pull-right badge bg-blue" >${result.gender}</span></a>` 
         
@@ -539,12 +479,6 @@
       })
 
 
-    })
-    $("#imageUploadEdit").change(function() {
-      readURLEdit(this);
-    })
-    $("#imageUpload").change(function() {
-        readURL(this);
     })
   })
 </script>

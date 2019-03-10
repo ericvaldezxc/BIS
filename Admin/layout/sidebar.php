@@ -24,31 +24,45 @@
         </div>
       </div>
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="treeview">
+        <li id="sysSetup" class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Sytem Setup</span>
+            <i class="fa fa-wrench"></i> <span>Sytem Setup</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../index.html"><i class="fa fa-circle-o"></i> Case</a></li>
-            <li><a href="../index2.html"><i class="fa fa-circle-o"></i> Officer Position</a></li>
-            <li><a href="../index2.html"><i class="fa fa-circle-o"></i> Term</a></li>
+            <li id="barangay"><a href="Barangay.php"><i class="fa fa-circle-o"></i> Barangay</a></li>
+            <li id="case"><a href="Case.php"><i class="fa fa-circle-o"></i> Case</a></li>
+            <li id="officerPosition"><a href="OfficerPosition.php"><i class="fa fa-circle-o"></i> Officer Position</a></li>
+            <li id="term"><a href="Term.php"><i class="fa fa-circle-o"></i> Term</a></li>
+            <li id="user"><a href="User.php"><i class="fa fa-circle-o"></i> User</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li id="transaction" class="treeview">
           <a href="#">
-            <i class="fa fa-th"></i> <span>Transaction</span>
+            <i class="fa fa-briefcase"></i> <span>Transaction</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="Resident.php"><i class="fa fa-circle-o"></i> Resident</a></li>
-            <li><a href="Officer.php"><i class="fa fa-circle-o"></i> Officer</a></li>
-            <li><a href="Case.php"><i class="fa fa-circle-o"></i> Cases</a></li>
-            <li><a href="Activity.php"><i class="fa fa-circle-o"></i> Activity</a></li>
+            <li id="resident"><a href="Resident.php"><i class="fa fa-circle-o"></i> Resident</a></li>
+            <li id="residentCase"><a href="ResidentCase.php"><i class="fa fa-circle-o"></i> Resident Case</a></li>
+            <li id="officer"><a href="Officer.php"><i class="fa fa-circle-o"></i> Officer</a></li>
+            <li id="activity"><a href="Activity.php"><i class="fa fa-circle-o"></i> Activity</a></li>
+          </ul>
+        </li>
+        <li id="report" class="treeview">
+          <a href="#">
+            <i class="fa fa-print"></i> <span>Reports</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="clearance"><a href="Clearance.php"><i class="fa fa-circle-o"></i> Clearance</a></li>
+            <li id="indigency"><a href="Indigency.php"><i class="fa fa-circle-o"></i> Indigency</a></li>
           </ul>
         </li>
       </ul>

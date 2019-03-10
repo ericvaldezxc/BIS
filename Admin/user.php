@@ -7,7 +7,7 @@
   ?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Activity | Baranggay Information System </title>
+  <title>User | Baranggay Information System </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -71,11 +71,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Activity
+        User
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-briefcase"></i> Transaction</a></li>
-        <li class="active">Activity</li>
+        <li><a href="#"><i class="fa fa-wrench"></i> System Setup</a></li>
+        <li class="active">User </li>
       </ol>
     </section>
 
@@ -84,10 +84,10 @@
         <div class="col-xs-12">
           <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Activity List</h3>
+              <h3 class="box-title">User List</h3>
               <br/>
               <a class="btn btn-sm btn-success btn-flat residentAdd margin-top-lg" data-toggle="modal" data-target="#addModal">
-                <i class="fa fa-plus"></i> Activity
+                <i class="fa fa-plus"></i> User
               </a>
             </div>
             <div class="box-body">
@@ -95,25 +95,14 @@
                 <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Date</th>
+                  <th>Alive</th>
+                  <th>Active</th>
                   <th style="width:10%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                  <td>Eric Valdez</td>
-                  <td>Secret</td>
-                  <td class="text-center" style="width:10%">
-                    <a class="btn btn-sm btn-info btn-flat residentInfo">
-                      <i class="fa fa-eye"></i>
-                    </a>
-                    <a class="btn btn-sm btn-success btn-flat residentEdit">
-                      <i class="fa fa-edit"></i>
-                    </a>
-                    <a class="btn btn-sm btn-danger btn-flat residentDelete">
-                      <i class="fa fa-trash-o"></i>
-                    </a>
-                  </td>
+                  
                 </tr>
               </table>
             </div>
@@ -127,32 +116,13 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Editting Activity</h4>
+            <h4 class="modal-title">Editting Case</h4>
           </div>
           <div class="modal-body"> 
             <div class="row">
               <div class="col-lg-8">
-                Activity Name
-                <input class="form-control" type="text" id="nameTxtEdit" placeholder="Enter Activity Name">
-              </div>
-              <div class="col-lg-4">
-                Target Date
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="birthDayDatePckrEdit">
-                </div>
-              </div>
-            </div>
-            <div class="row margin-top-md">
-              <div class="col-lg-12">
-                Description
-                <form>
-                  <textarea id="editor1Edit" name="editor1Edit" rows="10" cols="80">
-                  
-                  </textarea>
-                </form>
+                Name
+                <input class="form-control" type="text" id="nameTxtEdit" placeholder="Enter Name">
               </div>
             </div>
           </div>
@@ -165,62 +135,40 @@
     <div class="modal fade" id="addModal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <div class="modal-header">
+        <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Adding New Activity</h4>
+            <h4 class="modal-title">Adding New User</h4>
           </div>
           <div class="modal-body"> 
             <div class="row">
               <div class="col-lg-8">
-                Activity Name
-                <input class="form-control" type="text" id="nameTxt" placeholder="Ente Activity Name">
+                Name
+                <select class="form-control select2 " id="nameDrp" style="width: 100%;">
+                  <option selected="selected" disabled>Please Select</option>
+                  <?php
+                    $query = "select resident_id,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_resident where resident_active = 'Active' and resident_alive = 'Yes' order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc ";
+                    $stmt = $connection->prepare($query);
+                    $stmt->execute();
+                    $stmt->bind_result($id,$name);
+                    $option = "";
+                    while($stmt->fetch())
+                    {
+                      $option = $option . "<option value='$id' >$name</option>";
+                    }
+                    echo $option;
+                  ?>
+                </select>
               </div>
               <div class="col-lg-4">
-                Target Date
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="birthDayDatePckr">
-                </div>
-              </div>
-            </div>
-            <div class="row margin-top-md">
-              <div class="col-lg-12">
-                Description
-                <form>
-                  <textarea id="editor1" name="editor1" rows="10" cols="80">
-                  
-                  </textarea>
-                </form>
+                Username
+                <input class="form-control" type="text" id="username" placeholder="Enter Username">
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success saveBtn">Save <i class="fa fa-save"></i></button>
+            <button type="button" class="btn btn-success" id="saveBtn">Save <i class="fa fa-save"></i></button>
           </div>
-        </div>
-      </div>
-    </div>
-    
-    
-    <div class="modal fade" id="infoModal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="box box-widget widget-user-2">
-            <div class="widget-user-header bg-blue">
-              <h3 class="widget-user-username" id="nameSpan" style="margin-left:0px !important">Nadia Carmichael</h3>
-              <h5 class="widget-user-desc" id="aliveSpan" style="margin-left:5px !important">Lead Developer</h5>
-            
-              <div class="row">
-                <div class="col-lg-12" id="descSpan">
-
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
@@ -228,6 +176,7 @@
       
       include_once('custom.php');
     ?>
+
 
 </div>
 
@@ -265,99 +214,45 @@
 <!-- page script -->
 <script>
   $(function () {
-    CKEDITOR.replace('editor1')
-    CKEDITOR.replace('editor1Edit')
-    
-    let txtarea = $('.textarea').wysihtml5()
+    $('.select2').select2()
 
     let table = $('.dataTable').DataTable({ 
         "ajax": {
-            "url": "API/showAllActivity.php",
+            "url": "API/showUser.php",
             "type": "post"
-        }
+        },
+        "searching": false,
+        "paging": false,
+        "ordering": false,
+        "info":     false
+        
     })
     setInterval( function () {
         table.ajax.reload(null, false )
     }, 1000 )
 
-    $('#birthDayDatePckr').datepicker({
-      autoclose: true
-    })
-    $('#birthDayDatePckrEdit').datepicker({
-      autoclose: true
-    })
-    
     
     $.hulla = new hullabaloo();
     
-
-    $('.saveBtn').on('click',() => {
-      let name = document.querySelector('#nameTxt').value
-      let date = document.querySelector('#birthDayDatePckr').value
-      let desc =  CKEDITOR.instances['editor1'].getData()
-
-      $.ajax({
-        type:'POST',
-        data:{desc:desc,date:date,name:name},
-        url:"API/insertActivity.php",
-        success: function(result){
-          if(result == 'Success'){
-            document.querySelector('#nameTxt').value = ""
-            document.querySelector('#birthDayDatePckr').value = ""
-            CKEDITOR.instances['editor1'].setData("")
-            $('#addModal').modal('toggle')
-            $.hulla.send("Successfully Added", "success");
-          }
-          else{
-            $.hulla.send("Error encountered while adding the data\nPlease try again", "danger");
-          }
-        },
-        error:function(err){
-          $.hulla.send("Error encountered ", "danger");
-
-
-        }
-      })
-    })
-
-
     $('.dataTable').on('click','a.itemEdit',function(){
       $('#editModal').modal('toggle')
       
       let id = $(this).data('id')
-      $.ajax({
-        type:'POST',
-        data:{id:id},
-        dataType:'json',
-        url:"API/showActivity.php",
-        success: function(result){
-          document.querySelector('#nameTxtEdit').value = result.name
-          $('#birthDayDatePckrEdit').datepicker('setDate', new Date(result.date));
-          CKEDITOR.instances['editor1Edit'].setData(result.desc)
-          $('#editBtn').data('id',result.id)
-          
-          
-        },
-        error:function(err){
-          console.log(err)
-
-
-        }
-      })
+      $('#editBtn').data('id',id)
+      let name = $(this).closest('tr').children('td:first').text()
+      $('#nameTxtEdit').val(name)  
 
     })
 
     $('#editBtn').on('click',function(){
     
-      let name = document.querySelector('#nameTxtEdit').value
-      let date = document.querySelector('#birthDayDatePckrEdit').value
-      let desc =  CKEDITOR.instances['editor1Edit'].getData()
+      let name = $('#nameTxtEdit').val() 
       let id = $('#editBtn').data('id') 
 
       $.ajax({
         type:'POST',
-        data:{desc:desc,date:date,name:name,id:id},
-        url:"API/updateActivity.php",
+        data:{name:name,id:id},
+        url:"API/updateCase.php",
         success: function(result){
           if(result == 'Success'){
             $('#editModal').modal('toggle')
@@ -370,28 +265,51 @@
         error:function(err){
           console.log(err)
 
-
         }
       })
 
-
-
     })
 
-    $('.dataTable').on('click','a.itemDelete',function(){
+    $('#saveBtn').on('click',function(){
+    
+      let name = $('#nameDrp').val() 
+      let username = $('#username').val()
+
+      $.ajax({
+        type:'POST',
+        data:{username:username,name:name},
+        url:"API/insertUser.php",
+        success: function(result){
+          if(result == 'Success'){
+            $('#addModal').modal('toggle')
+            $.hulla.send("Successfully Updated", "success");
+          }
+          else{
+            $.hulla.send("Error encountered while updating the data\nPlease try again", "danger");
+          }
+        },
+        error:function(err){
+          console.log(err)
+
+        }
+    })
+
+  })
+  
+  $('.dataTable').on('click','a.residentDelete',function(){
       
       let id = $(this).data('id') 
 
       $.ajax({
         type:'POST',
         data:{id:id},
-        url:"API/deleteActivity.php",
+        url:"API/deleteUser.php",
         success: function(result){
           if(result == 'Success'){
             $.hulla.send("Successfully Deleted", "success");
           }
           else{
-            $.hulla.send("Error encountered", "danger");
+            $.hulla.send("Error encountered while deleting the data\nPlease try again", "danger");
           }
         },
         error:function(err){
@@ -402,62 +320,8 @@
       })
 
 
+  })
 
-    })
-
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-              $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-              $('#imagePreview').hide();
-              $('#imagePreview').fadeIn(650);
-          }
-          reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    function readURLEdit(input) {
-      if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-              $('#imagePreviewEdit').css('background-image', 'url('+e.target.result +')');
-              $('#imagePreviewEdit').hide();
-              $('#imagePreviewEdit').fadeIn(650);
-          }
-          reader.readAsDataURL(input.files[0]);
-      }
-    }
-    $('.dataTable').on('click','a.itemInfo',function(){
-      $('#infoModal').modal('toggle')
-      let id = $(this).data('id')
-      $.ajax({
-        type:'POST',
-        data:{id:id},
-        dataType:'json',
-        url:"API/showActivityProfile.php",
-        success: function(result){
-          document.querySelector('#descSpan').innerHTML = result.desc 
-        
-          document.querySelector('#aliveSpan').innerHTML = `on ${result.date}` 
-          document.querySelector('#nameSpan').innerHTML = result.name
-
-        },
-        error:function(err){
-          console.log(err)
-
-
-        }
-      })
-
-
-    })
-    $("#imageUploadEdit").change(function() {
-      readURLEdit(this);
-    })
-    $("#imageUpload").change(function() {
-        readURL(this);
-    })
   })
 </script>
 </body>
