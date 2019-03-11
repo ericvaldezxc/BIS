@@ -25,7 +25,13 @@
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
   <link rel="icon" href="dist/img/icon.png">
 
-  
+  <style>
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 500px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
   
 </head>
 <body>
@@ -307,7 +313,15 @@
         </div>
     </div>
 </section>
-
+<section class="section-table cid-rkce9NHpVA" id="table1-m">
+  <div class="container container-table">
+      <h3 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+          This is where we are
+      </h3>
+      
+    <div id="map"></div>
+    </div>
+</section>
 <section once="" class="cid-rht0MPoVIB" id="footer7-c">
     <div class="container">
         <div class="media-container-row align-center mbr-white">
@@ -325,6 +339,8 @@
         </div>
     </div>
 </section>
+<!-- Replace the value of the key parameter with your own API key. -->
+
 
 
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
@@ -339,9 +355,37 @@
     <script src="assets/theme/js/script.js"></script>
     <script src="assets/formoid/formoid.min.js"></script>
     <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
-
     <script>
+        function initMap() {
+            $.ajax({
+                type:'POST',
+                url:"Controller/BarangayController.php",
+                dataType:'json',
+                success: function(result){
+                    // let uluru = {lat: 14.615230, lng: 121.01791};
+                    let lat = parseFloat(result.lat)
+                    let long = parseFloat(result.long)
+                    let uluru = {lat: lat, lng: long};
+                    let map = new google.maps.Map(
+                        document.getElementById('map'), {zoom: 20, center: uluru});
+                    var marker = new google.maps.Marker({position: uluru, map: map});
+                }
+                , 
+                error:function(err){
+                
+
+                }
+            })
+            
+        }
+    </script>
+    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5bjSh8aMfzB6CmZpYSlBjJg3SRn2075M&callback=initMap"async defer></script> -->
+   
+    <script>
+
         $(function () {
+
+           
             $('.select2').select2()
             
             window.setInterval(function(){
@@ -390,6 +434,7 @@
 
 
         })
+        
     </script>
   
   

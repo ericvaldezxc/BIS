@@ -71,7 +71,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Case
+        Term
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-wrench"></i> System Setup</a></li>
@@ -136,7 +136,7 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Adding New Case</h4>
+            <h4 class="modal-title">Adding New Term</h4>
           </div>
           <div class="modal-body"> 
             <div class="row">

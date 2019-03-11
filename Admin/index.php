@@ -67,19 +67,34 @@
     <section class="content-header">
       <h1>
         Dashboard
-        <small>Version 2.0</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-    <div class="box box-info">
+      <div class="col-lg-6">
+        <div class="box box-info">
+          <div class="box-header with-border">
+            <h3 class="box-title">Gender</h3>
+
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+          </div>
+          <div class="box-body">
+            <canvas id="pieChart" style="height:250px"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+          <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Latest Orders</h3>
+              <h3 class="box-title">Case</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -87,118 +102,15 @@
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
-              <div class="table-responsive">
-                <table class="table no-margin">
-                  <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Item</th>
-                    <th>Status</th>
-                    <th>Popularity</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                    <td>Call of Duty IV</td>
-                    <td><span class="label label-success">Shipped</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                    <td>Samsung Smart TV</td>
-                    <td><span class="label label-warning">Pending</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                    <td>iPhone 6 Plus</td>
-                    <td><span class="label label-danger">Delivered</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                    <td>Samsung Smart TV</td>
-                    <td><span class="label label-info">Processing</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                    <td>Samsung Smart TV</td>
-                    <td><span class="label label-warning">Pending</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                    <td>iPhone 6 Plus</td>
-                    <td><span class="label label-danger">Delivered</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                    <td>Call of Duty IV</td>
-                    <td><span class="label label-success">Shipped</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                  <thead>
-                      <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
-                          <th>Salary</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
-                          <td>$320,800</td>
-                      </tr>
-                  </tbody>
-              </table>
-
-
-
+              <div class="chart">
+                <div id="bar-chart" style="height: 340px;"></div>
               </div>
-              <!-- /.table-responsive -->
             </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
-            </div>
-            <!-- /.box-footer -->
           </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
+      </div>
 
     </section>
-    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
@@ -248,5 +160,93 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <script src="../dist/js/custom.js"></script>
+<!-- ChartJS -->
+<script src="../bower_components/chart.js/Chart.js"></script>
+<!-- FLOT CHARTS -->
+<script src="../bower_components/Flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="../bower_components/Flot/jquery.flot.resize.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="../bower_components/Flot/jquery.flot.pie.js"></script>
+<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+<script src="../bower_components/Flot/jquery.flot.categories.js"></script>
+<script>
+  $(document).ready(function(){
+    
+    $.ajax({
+        type:'POST',
+        url:"API/showResidentDonutGraph.php",
+        dataType:'json',
+        success: function(result){
+          var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+          var pieChart       = new Chart(pieChartCanvas)
+          var PieData        = result
+
+          var pieOptions     = {
+          
+            segmentShowStroke    : true,
+            segmentStrokeColor   : '#fff',
+            segmentStrokeWidth   : 2,
+            percentageInnerCutout: 50,
+            animationSteps       : 100,
+            animationEasing      : 'easeOutBounce',
+            animateRotate        : true,
+            animateScale         : false,
+            responsive           : true,
+            maintainAspectRatio  : true,
+            legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+          }
+          
+          pieChart.Doughnut(PieData, pieOptions)
+          
+        },
+        error:function(err){
+          $.hulla.send("Error encountered ", "danger");
+
+
+        }
+      })
+
+    $.ajax({
+      type:'POST',
+      url:"API/showCaseResidentGraph.php",
+      dataType:'json',
+      success: function(result){
+        var bar_data = result
+        $.plot('#bar-chart', [bar_data], {
+          grid  : {
+            borderWidth: 1,
+            borderColor: '#f3f3f3',
+            tickColor  : '#f3f3f3'
+          },
+          series: {
+            bars: {
+              show    : true,
+              barWidth: 0.5,
+              align   : 'center'
+            }
+          },
+          xaxis : {
+            mode      : 'categories',
+            tickLength: 0,
+            minTickSize: 1
+          }
+        })
+        
+      },
+      error:function(err){
+        $.hulla.send("Error encountered ", "danger");
+
+
+      }
+    })
+    
+
+    
+
+
+  })
+</script>
+
 </body>
 </html>

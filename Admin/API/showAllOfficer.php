@@ -6,7 +6,7 @@
         die("Connection failed: " . $connection->connect_error);
     } 
 
-    $query = "select baranggay_officer_id,resident_avatar,term_name,baranggay_officer_position_position,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_baranggay_officer as t1 inner join r_resident on resident_id = baranggay_officer_resident_id inner join r_term on baranggay_officer_term_id = term_id inner join r_baranggay_officer_position as t2 on t2.baranggay_officer_position_id = t1.baranggay_officer_position_id where resident_active = 'Active' and baranggay_officer_active = 'Active' and term_active = 'Active' order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc";
+    $query = "select baranggay_officer_id,resident_avatar,term_name,baranggay_officer_position_position,concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) as fullname from r_baranggay_officer as t1 inner join r_resident on resident_id = baranggay_officer_resident_id inner join r_term on baranggay_officer_term_id = term_id inner join r_baranggay_officer_position as t2 on t2.baranggay_officer_position_id = t1.baranggay_officer_position_id where resident_active = 'Active' and baranggay_officer_active = 'Active' order by concat(resident_last_name,', ',resident_first_name,' ',ifnull(resident_middle_name ,'')) asc";
     $stmt = $connection->prepare($query);
     $stmt->execute();
     $stmt->bind_result($id,$avatar,$term,$position,$name);

@@ -24,6 +24,12 @@
         </div>
       </div>
       <ul class="sidebar-menu" data-widget="tree">
+        <li id="dashboard" >
+          <a href="index.php">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+
         <li id="sysSetup" class="treeview">
           <a href="#">
             <i class="fa fa-wrench"></i> <span>Sytem Setup</span>

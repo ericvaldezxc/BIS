@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2019 at 06:44 PM
+-- Generation Time: Mar 11, 2019 at 04:07 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -59,7 +59,8 @@ CREATE TABLE `r_activity` (
 INSERT INTO `r_activity` (`activity_id`, `activity_name`, `activity_description`, `activity_target_date`, `activity_active`, `activity_date_added`, `activity_date_updated`) VALUES
 (5, 'Nutrition Month', '<blockquote>\n<p>National Nutrition Week&quot;, initiated in March 1973, was embraced by members of the American Dietetic Association (now the Academy of Nutrition and Dietetics) as a way to deliver nutrition education messages to the public while promoting the profession of dietetics. In 1980, in response to growing public interest in nutrition, the week-long celebration expanded to become a month-long observance. Read more about its past in the article, &quot;<a href=\"https://www.eatright.org/-', '2019-07-31 00:00:00', 'Active', '2019-03-11 01:34:25', '2019-03-11 01:34:25'),
 (6, 'Christmas Party', '<blockquote>\n<p>Christmas is an annual festival, commemorating the birth of Jesus Christ, observed primarily on December 25 as a religious and cultural celebration among billions of people around the world.&nbsp;</p>\n</blockquote>\n', '2019-12-25 00:00:00', 'Active', '2019-03-11 01:35:23', '2019-03-11 01:35:23'),
-(7, 'New Years Eve', '<p>In the Gregorian calendar, New Year&#39;s Eve, the last day of the year, is on 31 December. In many countries, New Year&#39;s Eve is celebrated at evening social gatherings, where many people dance, eat, drink alcoholic beverages, and watch or light fireworks to mark the new year. Some Christians attend a watchnight service</p>\n', '2019-12-31 00:00:00', 'Active', '2019-03-11 01:35:53', '2019-03-11 01:35:53');
+(7, 'New Years Eve', '<p>In the Gregorian calendar, New Year&#39;s Eve, the last day of the year, is on 31 December. In many countries, New Year&#39;s Eve is celebrated at evening social gatherings, where many people dance, eat, drink alcoholic beverages, and watch or light fireworks to mark the new year. Some Christians attend a watchnight service</p>\n', '2019-12-31 00:00:00', 'Active', '2019-03-11 01:35:53', '2019-03-11 01:35:53'),
+(8, 'Kapitan Feeding Program', '<blockquote>\n<p>A daily meal provides better&nbsp;<strong>nutrition</strong>&nbsp;and health and greater achievement in education. Our&nbsp;<strong>feeding program</strong>&nbsp;provides the children in school with a nutritious meal. The&nbsp;<strong>feeding program</strong>&nbsp;provides approximately 16,000 meals each month.</p>\n</blockquote>\n', '2018-06-20 00:00:00', 'Active', '2019-03-11 22:45:34', '2019-03-11 22:45:34');
 
 -- --------------------------------------------------------
 
@@ -71,6 +72,8 @@ CREATE TABLE `r_baranggay` (
   `baranggay_id` int(11) NOT NULL,
   `baranggay_name` varchar(100) NOT NULL,
   `baranggay_address` varchar(500) NOT NULL,
+  `baranggay_lat` varchar(100) NOT NULL,
+  `baranggay_long` varchar(100) NOT NULL,
   `baranggay_active` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
   `baranggay_date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `baranggay_date_activated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -80,8 +83,8 @@ CREATE TABLE `r_baranggay` (
 -- Dumping data for table `r_baranggay`
 --
 
-INSERT INTO `r_baranggay` (`baranggay_id`, `baranggay_name`, `baranggay_address`, `baranggay_active`, `baranggay_date_added`, `baranggay_date_activated`) VALUES
-(2, 'Barangay Doña Imelda', '145 Bayani Cor. Guirayan St., Area 22, District IV, Quezon City\r\n', 'Active', '2019-03-11 01:17:55', '2019-03-11 01:17:55');
+INSERT INTO `r_baranggay` (`baranggay_id`, `baranggay_name`, `baranggay_address`, `baranggay_lat`, `baranggay_long`, `baranggay_active`, `baranggay_date_added`, `baranggay_date_activated`) VALUES
+(2, 'Barangay Doña Imelda', '145 Bayani Cor. Guirayan St., Area 22, District IV, Quezon City\r\n', '14.615230', '121.01791', 'Active', '2019-03-11 01:17:55', '2019-03-11 21:16:58');
 
 -- --------------------------------------------------------
 
@@ -113,7 +116,8 @@ INSERT INTO `r_baranggay_officer` (`baranggay_officer_id`, `baranggay_officer_re
 (25, 51, 9, 4, 'Active', '2019-03-11 01:32:38', '2019-03-11 01:32:38'),
 (26, 52, 9, 4, 'Active', '2019-03-11 01:32:44', '2019-03-11 01:32:44'),
 (27, 53, 12, 4, 'Active', '2019-03-11 01:32:55', '2019-03-11 01:32:55'),
-(28, 54, 11, 4, 'Active', '2019-03-11 01:33:06', '2019-03-11 01:33:06');
+(28, 54, 11, 4, 'Active', '2019-03-11 01:33:06', '2019-03-11 01:33:06'),
+(29, 44, 9, 4, 'Inactive', '2019-03-11 22:44:28', '2019-03-11 22:44:39');
 
 -- --------------------------------------------------------
 
@@ -163,7 +167,9 @@ INSERT INTO `r_case` (`case_id`, `case_name`, `case_active`, `case_date_added`, 
 (7, 'Robbery', 'Active', '2019-03-11 01:18:36', '2019-03-11 01:18:36'),
 (8, 'Murder', 'Active', '2019-03-11 01:18:41', '2019-03-11 01:18:41'),
 (9, 'Frustrated-Murder', 'Active', '2019-03-11 01:18:47', '2019-03-11 01:18:47'),
-(10, 'Rape', 'Active', '2019-03-11 01:18:59', '2019-03-11 01:18:59');
+(10, 'Rape', 'Active', '2019-03-11 01:18:59', '2019-03-11 01:18:59'),
+(11, 'Curfew', 'Active', '2019-03-11 22:40:23', '2019-03-11 22:40:23'),
+(12, 'Blotter', 'Active', '2019-03-11 22:40:29', '2019-03-11 22:40:29');
 
 -- --------------------------------------------------------
 
@@ -206,12 +212,13 @@ INSERT INTO `r_resident` (`resident_id`, `resident_first_name`, `resident_middle
 (52, 'Terrence', 'T', 'Santos', 'Male', 'Yes', 'default-user.png', '', 'Tondo, Manila', 'Single', 'Manila', '1990-06-04', 'Active', '2019-03-11 01:25:20', '2019-03-11 01:26:08'),
 (53, 'Evangelyn', 'E', 'Alarcio', 'Male', 'Yes', 'default-user.png', '', 'Tondo, Manila', 'Single', 'Manila', '1982-05-20', 'Active', '2019-03-11 01:25:34', '2019-03-11 01:25:34'),
 (54, 'Imelda', 'E', 'Alas', 'Female', 'Yes', 'default-user.png', '', 'Tondo, Manila', 'Single', 'Manila', '1982-05-11', 'Active', '2019-03-11 01:25:49', '2019-03-11 01:25:49'),
-(55, 'Juan', NULL, 'Dela Cruz', 'Male', 'Yes', 'default-user.png', '', 'Makati, Philippines', 'Single', 'Manila', '1995-03-12', 'Active', '2019-03-11 01:26:46', '2019-03-11 01:26:46'),
+(55, 'Juan', NULL, 'Dela Cruz', 'Male', 'Yes', 'default-user.png', '', 'Makati, Philippines', 'Single', 'Manila', '1999-01-12', 'Active', '2019-03-11 01:26:46', '2019-03-11 01:47:47'),
 (56, 'Maria', NULL, 'Dimagiba', 'Female', 'Yes', 'default-user.png', '', 'Makati, Philippines', 'Single', 'Manila', '1995-03-21', 'Active', '2019-03-11 01:27:02', '2019-03-11 01:27:02'),
 (57, 'Pedro', NULL, 'Kalamay', 'Male', 'Yes', 'default-user.png', '', 'Cebu , Philippines', 'Single', 'Manila', '1994-12-15', 'Active', '2019-03-11 01:27:17', '2019-03-11 01:27:17'),
 (58, 'Wally', NULL, 'Binacutan', 'Male', 'Yes', 'default-user.png', '', 'Quezon City, Philippines', 'Single', 'Manila', '1994-12-29', 'Active', '2019-03-11 01:27:45', '2019-03-11 01:27:45'),
-(59, 'Daniel', NULL, 'Balibago', 'Male', 'Yes', 'default-user.png', '', 'North Fairview Quezon City, Philippines', 'Single', 'Manila', '1994-12-17', 'Active', '2019-03-11 01:28:05', '2019-03-11 01:28:05'),
-(60, 'Andres', NULL, 'Magtibay', 'Male', 'Yes', 'default-user.png', '', 'Makati, Philippines', 'Single', 'Manila', '1994-12-27', 'Active', '2019-03-11 01:28:17', '2019-03-11 01:28:17');
+(59, 'Daniel', NULL, 'Balibago', 'Male', 'Yes', 'default-user.png', '', 'North Fairview Quezon City, Philippines', 'Single', 'Manila', '1999-12-17', 'Active', '2019-03-11 01:28:05', '2019-03-11 01:47:09'),
+(60, 'Andres', NULL, 'Magtibay', 'Male', 'Yes', 'default-user.png', '', 'Makati, Philippines', 'Single', 'Manila', '1994-12-27', 'Active', '2019-03-11 01:28:17', '2019-03-11 01:28:17'),
+(61, 'Antonio', NULL, 'Corteciano', 'Male', 'Yes', '1527428.png', '', 'Manila ', 'Single', 'Manila', '1995-07-18', 'Inactive', '2019-03-11 22:42:03', '2019-03-11 22:42:56');
 
 -- --------------------------------------------------------
 
@@ -255,7 +262,8 @@ CREATE TABLE `r_user` (
 --
 
 INSERT INTO `r_user` (`user_id`, `user_username`, `user_password`, `user_resident_id`, `user_active`, `user_date_created`, `user_date_updated`) VALUES
-(8, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 43, 'Active', '2019-03-11 01:16:50', '2019-03-11 01:16:50');
+(8, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 43, 'Active', '2019-03-11 01:16:50', '2019-03-11 01:16:50'),
+(9, 'admin2', '5f4dcc3b5aa765d61d8327deb882cf99', 44, 'Active', '2019-03-11 22:40:50', '2019-03-11 22:40:50');
 
 -- --------------------------------------------------------
 
@@ -272,6 +280,22 @@ CREATE TABLE `t_clearance_record` (
   `clearance_file` varchar(200) NOT NULL,
   `clearance_record_date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `clearance_record_date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_indigency_record`
+--
+
+CREATE TABLE `t_indigency_record` (
+  `indigency_record_id` int(11) NOT NULL,
+  `indigency_record_control_number` varchar(200) NOT NULL,
+  `indigency_record_purpose` varchar(200) NOT NULL,
+  `indigency_record_remarks` varchar(200) NOT NULL,
+  `indigency_record_resident_id` int(11) NOT NULL,
+  `indigency_record_record_date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `indigency_record_record_date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -313,9 +337,11 @@ CREATE TABLE `t_resident_case` (
 --
 
 INSERT INTO `t_resident_case` (`resident_case_id`, `resident_case_resident_id`, `resident_case_case_id`, `resident_case_status`, `resident_case_active`, `resident_case_date_added`, `resident_case_date_updated`) VALUES
-(4, 55, 5, 'Resolved', 'Active', '2019-03-11 01:28:53', '2019-03-11 01:30:08'),
-(5, 57, 6, 'Pending', 'Active', '2019-03-11 01:29:06', '2019-03-11 01:29:06'),
-(6, 60, 9, 'Pending', 'Active', '2019-03-11 01:29:14', '2019-03-11 01:29:14');
+(4, 55, 5, 'Resolved', 'Inactive', '2019-03-11 01:28:53', '2019-03-11 23:02:16'),
+(5, 57, 6, 'Pending', 'Inactive', '2019-03-11 01:29:06', '2019-03-11 23:02:19'),
+(6, 60, 9, 'Pending', 'Inactive', '2019-03-11 01:29:14', '2019-03-11 23:02:20'),
+(7, 56, 7, 'Pending', 'Inactive', '2019-03-11 22:43:19', '2019-03-11 23:02:18'),
+(8, 55, 12, 'Pending', 'Inactive', '2019-03-11 22:43:29', '2019-03-11 23:02:17');
 
 --
 -- Indexes for dumped tables
@@ -389,6 +415,13 @@ ALTER TABLE `t_clearance_record`
   ADD KEY `clearance_record_resident_id` (`clearance_record_resident_id`);
 
 --
+-- Indexes for table `t_indigency_record`
+--
+ALTER TABLE `t_indigency_record`
+  ADD PRIMARY KEY (`indigency_record_id`),
+  ADD KEY `indigency_record_resident_id` (`indigency_record_resident_id`);
+
+--
 -- Indexes for table `t_request_certificate`
 --
 ALTER TABLE `t_request_certificate`
@@ -411,13 +444,13 @@ ALTER TABLE `t_resident_case`
 -- AUTO_INCREMENT for table `r_active_term`
 --
 ALTER TABLE `r_active_term`
-  MODIFY `active_term_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `active_term_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `r_activity`
 --
 ALTER TABLE `r_activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `r_baranggay`
@@ -429,7 +462,7 @@ ALTER TABLE `r_baranggay`
 -- AUTO_INCREMENT for table `r_baranggay_officer`
 --
 ALTER TABLE `r_baranggay_officer`
-  MODIFY `baranggay_officer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `baranggay_officer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `r_baranggay_officer_position`
@@ -441,13 +474,13 @@ ALTER TABLE `r_baranggay_officer_position`
 -- AUTO_INCREMENT for table `r_case`
 --
 ALTER TABLE `r_case`
-  MODIFY `case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `r_resident`
 --
 ALTER TABLE `r_resident`
-  MODIFY `resident_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `resident_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `r_term`
@@ -459,25 +492,31 @@ ALTER TABLE `r_term`
 -- AUTO_INCREMENT for table `r_user`
 --
 ALTER TABLE `r_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `t_clearance_record`
 --
 ALTER TABLE `t_clearance_record`
-  MODIFY `clearance_record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `clearance_record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT for table `t_indigency_record`
+--
+ALTER TABLE `t_indigency_record`
+  MODIFY `indigency_record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `t_request_certificate`
 --
 ALTER TABLE `t_request_certificate`
-  MODIFY `request_certificate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `request_certificate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `t_resident_case`
 --
 ALTER TABLE `t_resident_case`
-  MODIFY `resident_case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `resident_case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -508,6 +547,12 @@ ALTER TABLE `r_user`
 --
 ALTER TABLE `t_clearance_record`
   ADD CONSTRAINT `t_clearance_record_ibfk_1` FOREIGN KEY (`clearance_record_resident_id`) REFERENCES `r_resident` (`resident_id`);
+
+--
+-- Constraints for table `t_indigency_record`
+--
+ALTER TABLE `t_indigency_record`
+  ADD CONSTRAINT `t_indigency_record_ibfk_1` FOREIGN KEY (`indigency_record_resident_id`) REFERENCES `r_resident` (`resident_id`);
 
 --
 -- Constraints for table `t_request_certificate`
