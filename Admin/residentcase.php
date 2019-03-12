@@ -97,6 +97,7 @@
                   <th>Name</th>
                   <th>Case</th>
                   <th>Status</th>
+                  <th>Complainant</th>
                   <th>Date</th>
                   <th style="width:10%">Action</th>
                 </tr>
@@ -122,7 +123,7 @@
           <div class="modal-body"> 
             <div class="row">
               <div class="col-lg-8">
-                Name
+                Suspect
                 <select class="form-control select2 " id="nameDrp" style="width: 100%;">
                   <option selected="selected" disabled>Please Select</option>
                   <?php
@@ -138,6 +139,12 @@
                     echo $option;
                   ?>
                 </select>
+              </div>
+            </div>
+            <div class="row margin-top-md">
+              <div class="col-lg-8">
+                Complainant
+                <input class="form-control" type="text" id="complainantTxt" placeholder="Enter Complainant">
               </div>
               <div class="col-lg-4">
                 Case
@@ -177,7 +184,7 @@
           <div class="modal-body"> 
             <div class="row">
               <div class="col-lg-8">
-                Name
+                Suspect
                 <select class="form-control select2 " id="nameDrpEdit" style="width: 100%;">
                   <option selected="selected" disabled>Please Select</option>
                   <?php
@@ -193,6 +200,12 @@
                     echo $option;
                   ?>
                 </select>
+              </div>
+            </div>
+            <div class="row margin-top-md">
+              <div class="col-lg-6">
+                Complainant
+                <input class="form-control" type="text" id="complainantTxtEdit" placeholder="Enter Complainant">
               </div>
               <div class="col-lg-4">
                 Case
@@ -314,10 +327,11 @@
     $('.saveBtn').on('click',() => {
       let name = document.querySelector('#nameDrp').value
       let baranggayCase = document.querySelector('#caseDrp').value
-
+      let complainant = document.querySelector('#complainantTxt').value
+      
       $.ajax({
         type:'POST',
-        data:{name:name,case:baranggayCase},
+        data:{complainant:complainant,name:name,case:baranggayCase},
         url:"API/insertResidentCase.php",
         success: function(result){
           if(result == 'Success'){
@@ -350,6 +364,7 @@
         success: function(result){
           document.querySelector('#caseDrpEdit').value = result.case
           document.querySelector('#nameDrpEdit').value = result.name
+          document.querySelector('#complainantTxtEdit').value = result.complainant
           $('#caseDrpEdit').trigger('change')
           $('#nameDrpEdit').trigger('change')
           $('#editBtn').data('id',result.id)
@@ -369,11 +384,12 @@
     
       let baranggayCase = document.querySelector('#caseDrpEdit').value
       let name = document.querySelector('#nameDrpEdit').value
+      let complainant = document.querySelector('#complainantTxtEdit').value
       let id = $('#editBtn').data('id') 
 
       $.ajax({
         type:'POST',
-        data:{case:baranggayCase,name:name,id:id},
+        data:{complainant:complainant,case:baranggayCase,name:name,id:id},
         url:"API/updateResidentCase.php",
         success: function(result){
           if(result == 'Success'){

@@ -92,6 +92,8 @@
                 <tr>
                   <th>Name</th>
                   <th>Address</th>
+                  <th>Latitude</th>
+                  <th>Long</th>
                   <th style="width:10%">Action</th>
                 </tr>
                 </thead>
@@ -118,6 +120,16 @@
               <div class="col-lg-8">
                 Name
                 <input class="form-control" type="text" id="nameTxtEdit" placeholder="Enter Name">
+              </div>
+            </div>
+            <div class="row margin-top-md">
+              <div class="col-lg-6">
+                Latitude
+                <input class="form-control" type="text" id="latitudeTxt" placeholder="Enter Latitude">
+              </div>
+              <div class="col-lg-6">
+                Longitude
+                <input class="form-control" type="text" id="longitudeTxt" placeholder="Enter Longitude">
               </div>
             </div>
             <div class="row margin-top-md">
@@ -204,20 +216,27 @@
       $('#editBtn').data('id',id)
       let name = $(this).closest('tr').children('td:first').text()
       let address = $(this).closest('tr').children('td:eq(1)').text()
+      let lat = $(this).closest('tr').children('td:eq(2)').text()
+      let long = $(this).closest('tr').children('td:eq(3)').text()
       $('#nameTxtEdit').val(name) 
       $('#addressTxt').val(address) 
+      $('#longitudeTxt').val(long) 
+      $('#latitudeTxt').val(lat) 
 
     })
 
     $('#editBtn').on('click',function(){
     
       let name = $('#nameTxtEdit').val() 
-      let address = $('#addressTxt').val() 
+      let address = $('#addressTxt').val()
+      let long = $('#longitudeTxt').val() 
+      let lat = $('#latitudeTxt').val() 
       let id = $('#editBtn').data('id') 
+      
 
       $.ajax({
         type:'POST',
-        data:{address:address,name:name,id:id},
+        data:{long:long,lat:lat,address:address,name:name,id:id},
         url:"API/updateBarangay.php",
         success: function(result){
           if(result == 'Success'){
