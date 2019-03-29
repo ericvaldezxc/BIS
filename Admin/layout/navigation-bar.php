@@ -137,11 +137,44 @@
                         <!-- /.row -->
                         </li>
                         <div class="text-center ">
+                            <a class="btn btn-default btn-flat" id="passwordChangeBtn" data-toggle="modal" data-target="#changePasswordModal">Change Password</a>
                             <a class="btn btn-default btn-flat" id="logoutBtn">Logout</a>
                         </div>
                     </ul>
                     </li>
                 </ul>
                 </div>
-            </nav>';
+            </nav>
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            ';
 ?>

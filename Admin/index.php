@@ -112,6 +112,28 @@
 
     </section>
   </div>
+  <div class="modal" id="changePasswordModal">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Change Password</h4>
+              </div>
+              <div class="modal-body"> 
+                  <div class="row">
+                      <div class="col-lg-8">
+                          New Password
+                          <input class="form-control" type="password" id="passwordText" >
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-success" id="savePasswordBtn">Save <i class="fa fa-save"></i></button>
+              </div>
+          </div>
+      </div>
+  </div>
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
@@ -159,6 +181,9 @@
 <script src="../dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script src="../dist/js/custom/hullabaloo.js" ></script>
+<script src="../dist/js/custom/less.min.js" ></script>
+
 <script src="../dist/js/custom.js"></script>
 <!-- ChartJS -->
 <script src="../bower_components/chart.js/Chart.js"></script>

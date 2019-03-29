@@ -10,6 +10,20 @@ $('#logoutBtn').on('click',function(){
 
 })
 
+$('#savePasswordBtn').on('click',function(){  
+  let passwordText = $('#passwordText').val()
+  $.hulla = new hullabaloo();
+
+  $.ajax({
+    type:'POST',
+    url:"../Controller/ChangePassword.php",
+    data:{passwordText:passwordText},
+    success: function(result){
+      $.hulla.send("Password changed", "success");
+    }
+    
+  })
+})
 
 let title = document.title
 if(title == "Barangay | Baranggay Information System"){
